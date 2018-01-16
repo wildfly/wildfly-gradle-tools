@@ -1,0 +1,66 @@
+plugins {
+	id 'com.gradle.build-scan' version '1.11'
+	id 'com.gradle.plugin-publish' version '0.9.9'
+	id 'java-gradle-plugin'
+	id 'maven-publish'
+	id 'idea'
+}
+
+repositories {
+	mavenCentral()
+	jcenter()
+	maven {
+		name 'jboss-nexus'
+		url "http://repository.jboss.org/nexus/content/groups/public/"
+	}
+}
+
+gradlePlugin {
+	plugins {
+		simplePlugin {
+			id = 'org.wildfly.build.provision'
+			implementationClass = 'org.wildfly.build.gradle.provisioning.ProvisionPlugin'
+		}
+	}
+}
+
+publishing {
+	repositories {
+		maven {
+			url "~/.m2/repository"
+		}
+	}
+}
+
+dependencies {
+    compile 'org.wildfly.build:wildfly-server-provisioning-standalone:1.2.6.Final@jar'
+	testCompile 'junit:junit:4.12'
+	testCompile gradleTestKit()
+}
+
+buildScan {
+	//See also: https://docs.gradle.com/build-scan-plugin/
+	//Enable reports with "--scan" option; e.g.:
+	//  gradle clean build --scan
+	licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+	//Uncomment this to agree to the above terms of service; required to use the scan service:
+	//licenseAgree = 'yes'
+}
+
+pluginBundle {
+    website = 'https://github.com/Sanne/wildfly-gradle-tools'
+    vcsUrl = 'https://github.com/Sanne/wildfly-gradle-tools.git'
+    description = 'A gradle plugin to materialize a custom WildFly instance from a server provisioning definition'
+    tags = ['java', 'jboss', 'module', 'gradle', 'plugin', 'wildfly']
+
+    plugins {
+        wildflyProvisionPlugin {
+            id = 'org.wildfly.build.provision'
+            displayName = 'WildFly Provision Plugin'
+        }
+    }
+}
+
+description = 'A WildFly Provisioning Plugin for Gradle users'
+version = '0.0.1'
+group 'org.wildfly.build'

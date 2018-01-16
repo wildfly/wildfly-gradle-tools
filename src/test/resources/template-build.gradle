@@ -1,0 +1,16 @@
+plugins {
+	id 'org.wildfly.build.provision'
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+provision {
+	//Optional provisioning configuration:
+	//configuration = "custom-server-provisioning.xml"
+
+	//Optional destination directory:
+	//destinationDir = file("$buildDir/WildFly-Light")
+}
