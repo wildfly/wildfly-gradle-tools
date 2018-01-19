@@ -1,23 +1,27 @@
 # Gradle plugin for WildFly provisioning
 
-*org.wildfly.build.provision*
+*org.wildfly.build.provision* plugin. See also instruction on the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/org.wildfly.build.provision).
 
 ## Example build.gradle
 
     plugins {
-	   id 'org.wildfly.build.provision'
+       id 'org.wildfly.build.provision' version "0.0.1"
     }
 
     repositories {
-	   mavenCentral()
+       mavenCentral()
+       maven {
+          name 'jboss-nexus'
+          url "http://repository.jboss.org/nexus/content/groups/public/"
+       }
     }
-
+    
     provision {
-	   //Optional provisioning configuration:
-	   //configuration = "custom-server-provisioning.xml"
-
+       //Optional provisioning configuration:
+       //configuration = "custom-server-provisioning.xml"
+       
        //Optional destination directory:
-       //destinationDir = file("$buildDir/WildFly-Light")
+       //destinationDir = file("$buildDir/light-wildfly")
     }
 
 
@@ -69,7 +73,7 @@ Set the `destinationDir` property to any other directory to change this.
 If you choose a `destinationDir` which is not in your build directory you might want to explicitly add a clean task:
 
     clean {
-       delete "/tmp/custom-wildfly-server"
+       delete file("/somehere/custom-wildfly")
     }
 
 ## Limitations
