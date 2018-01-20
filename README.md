@@ -5,7 +5,7 @@
 ## Example build.gradle
 
     plugins {
-       id 'org.wildfly.build.provision' version "0.0.1"
+       id 'org.wildfly.build.provision' version "0.0.2"
     }
 
     repositories {
