@@ -1,33 +1,69 @@
 # Gradle plugin for WildFly provisioning
 
-*org.wildfly.build.provision* plugin. See also instruction on the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/org.wildfly.build.provision).
+*org.wildfly.build.provision* plugin. See also the [plugin page](https://plugins.gradle.org/plugin/org.wildfly.build.provision) on the Gradle Plugin Portal for details on how to apply the latest plugin version to your build.
 
-## Example build.gradle
+## Minimum working `build.gradle` :
+
+	plugins {
+		id 'org.wildfly.build.provision' version '0.0.3'
+	}
+	
+	provision {
+	}
+
+Run with
+
+ > gradle provision
+
+You'll find a fully working copy of WildFly 11.0.0.Final in your `build/provisioned-wildfly` directory.
+
+
+## More powerful example `build.gradle` :
 
     plugins {
-       id 'org.wildfly.build.provision' version "0.0.2"
+       id 'org.wildfly.build.provision' version "0.0.3"
     }
 
     repositories {
-       mavenCentral()
-       maven {
-          name 'jboss-nexus'
-          url "http://repository.jboss.org/nexus/content/groups/public/"
+		mavenLocal()
+		mavenCentral()
+		maven {
+            name 'jboss-nexus'
+            url "http://repository.jboss.org/nexus/content/groups/public/"
        }
     }
     
     provision {
-       //Optional provisioning configuration:
-       //configuration = "custom-server-provisioning.xml"
-       
-       //Optional destination directory:
-       //destinationDir = file("$buildDir/light-wildfly")
+		//Optional provisioning configuration:
+		//configuration = "custom-server-provisioning.xml"
+		
+		//Optional destination directory:
+		//destinationDir = file("$buildDir/light-wildfly")
+		//Overrides the version of an artifact:
+		override( 'org.hibernate:hibernate-core' ) {
+			version = '5.3.0.Beta1'
+		}
+		override( 'org.hibernate:hibernate-envers' ) {
+			version = '5.3.0.Beta1'
+		}
+		//Overrides version, group, etc.. :
+		override( 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api' ) {
+			groupId = 'javax.persistence'
+			artifactId = 'javax.persistence-api'
+			version = '2.2'
+		}
     }
 
 
 ## Description
 
-The `:provision` target will download and install a WildFly server to the target directory.
+The `provision` task will download and install a WildFly server to the target directory, while
+upgrading the two Hibernate ORM libraries and replacing the JPA 2.1 API with the standard JPA 2.2 API.
+
+N.B. this example is not replacing all Hibernate ORM libraries so it wouldn't provide a reliable server!
+Doing such an upgrade properly shouldn't be done via version overrides but using an appropriate
+feature pack - using the more powerful 'configuration' property.
+The overrides capability is meant for developers experimenting with changes to the WildFly server.
 
 ### Thin server
 
@@ -78,16 +114,14 @@ If you choose a `destinationDir` which is not in your build directory you might 
 
 ## Limitations
 
-Provisioning is a powerful feature of the WildFly server which includes options to override dependencies,
-inject parameters into templates, and more.
-Such capabilities have not yet been exposed in this plugin.
+Provisioning is a powerful feature of the WildFly server which includes several other capabilities which have not
+yet been implemented in this plugin.
 Patches and help welcome!
 
 ## Maven users
 
-This plugin is actually a port to Gradle of an existing Maven plugin.
+This plugin is actually a fairly limited port to Gradle of an existing, more powerful and more mature Maven plugin.
 Maven users should use [the original plugin](https://github.com/wildfly/wildfly-build-tools/).
-
 
 ## License
 

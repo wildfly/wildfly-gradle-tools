@@ -8,4 +8,20 @@ provision {
 
 	//Optional destination directory:
 	//destinationDir = file("$buildDir/WildFly-Light")
+
+	//Overrides the version of an artifact:
+	override( 'org.hibernate:hibernate-core' ) {
+		version = '5.2.0.Final'
+	}
+	//Overrides version, group, etc.. :
+	override( 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api' ) {
+		groupId = 'javax.persistence'
+		artifactId = 'javax.persistence-api'
+		version = '2.2'
+	}
+	//Any override is potentially valid, but produce a warning when it goes unused:
+	override( 'org.hibernate.javax.persistence:something' ) {
+		groupId = 'javax.persistence'
+		artifactId = 'javax.persistence-api'
+	}
 }
