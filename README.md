@@ -24,16 +24,16 @@ You'll find a fully working copy of WildFly 11.0.0.Final in your `build/provisio
        id 'org.wildfly.build.provision' version "0.0.3"
     }
 
-    repositories {
+	repositories {
 		mavenLocal()
 		mavenCentral()
 		maven {
-            name 'jboss-nexus'
-            url "http://repository.jboss.org/nexus/content/groups/public/"
-       }
-    }
-    
-    provision {
+			name 'jboss-nexus'
+			url "http://repository.jboss.org/nexus/content/groups/public/"
+		}
+	}
+	
+	provision {
 		//Optional provisioning configuration:
 		//configuration = "custom-server-provisioning.xml"
 		
@@ -52,7 +52,7 @@ You'll find a fully working copy of WildFly 11.0.0.Final in your `build/provisio
 			artifactId = 'javax.persistence-api'
 			version = '2.2'
 		}
-    }
+	}
 
 
 ## Description
