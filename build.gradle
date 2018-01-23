@@ -49,8 +49,8 @@ buildScan {
 }
 
 pluginBundle {
-    website = 'https://github.com/Sanne/wildfly-gradle-tools'
-    vcsUrl = 'https://github.com/Sanne/wildfly-gradle-tools.git'
+    website = 'https://github.com/wildfly/wildfly-gradle-tools'
+    vcsUrl = 'https://github.com/wildfly/wildfly-gradle-tools.git'
     description = 'A gradle plugin to materialize a custom WildFly instance from a server provisioning definition'
     tags = ['java', 'jboss', 'module', 'gradle', 'plugin', 'wildfly']
 
@@ -63,5 +63,5 @@ pluginBundle {
 }
 
 description = 'A WildFly Provisioning Plugin for Gradle users'
-version = '0.0.3'
+version = '0.0.4'
 group 'org.wildfly.build'
