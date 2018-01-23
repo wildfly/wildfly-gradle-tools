@@ -18,9 +18,13 @@ repositories {
 
 gradlePlugin {
 	plugins {
-		simplePlugin {
+		provisionPlugin {
 			id = 'org.wildfly.build.provision'
 			implementationClass = 'org.wildfly.build.gradle.provisioning.ProvisionPlugin'
+		}
+		featurepackBuildPlugin {
+			id = 'org.wildfly.build.featurepack'
+			implementationClass = 'org.wildfly.build.gradle.featurepackbuild.FeaturePackBuilderPlugin'
 		}
 	}
 }
@@ -55,10 +59,16 @@ pluginBundle {
     tags = ['java', 'jboss', 'module', 'gradle', 'plugin', 'wildfly']
 
     plugins {
-        wildflyProvisionPlugin {
+		provisionPlugin {
             id = 'org.wildfly.build.provision'
             displayName = 'WildFly Provision Plugin'
+			description = 'A gradle plugin to materialize a custom WildFly instance from a server provisioning definition'
         }
+		provisionPlugin {
+			id = 'org.wildfly.build.featurepack'
+			displayName = 'WildFly Feature Pack builder'
+			description = 'A gradle plugin to help creating a custom WildFly Feature Pack'
+		}
     }
 }
 

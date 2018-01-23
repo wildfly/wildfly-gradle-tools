@@ -1,0 +1,16 @@
+plugins {
+	id 'org.wildfly.build.provision'
+}
+
+dependencies {
+
+	featurepack( libraries.hibernateorm )
+}
+
+feature-pack {
+	slot = 'orm53'
+	moduleTemplates = dir('/examplemodules')//dove sono i miei module.xml
+	//destinationDir = ... //TODO destination ZIP
+	//TODO metadata for the output POM
+	dependencyVersions( libraries )
+}
