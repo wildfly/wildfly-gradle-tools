@@ -1,0 +1,31 @@
+plugins {
+	id 'org.wildfly.build.featurepack'
+}
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
+configurations {
+	one23 // create a custom named configuration
+}
+
+dependencies {
+	// Then list dependencies for your custom configuration
+	one23 'org.hibernate:hibernate-core:5.1.12.Final'
+	one23 'org.hibernate:hibernate-envers:5.1.12.Final'
+	one23 'org.hibernate:hibernate-hikaricp:5.1.12.Final'
+	one23 'org.hibernate:hibernate-spatial:5.2.0.Final'
+}
+
+featurepack {
+	moduleTemplates = file("$rootDir/examplemodules") //where to find the templates for module.xml files to generate
+	destinationDir = file( "$rootDir/featurepack") //Target build directory
+	configurationName 'one23' //Specify which configuration to use for resolution of artifact versions
+	variables['slot'] = 'orm53' //Template engine: values to replace in the module.xml templates
+	variables['jipijapaSlot'] = 'wf11'
+	dependency 'org.wildfly:wildfly-feature-pack:11.0.0.Final' // [!] when extension is omitted, it will assume it is "zip"
+	dependency 'org.hibernate.elasticsearch-client-jbossmodules:elasticsearch-client-jbossmodules:5.6.7.hibernate01'
+}
+

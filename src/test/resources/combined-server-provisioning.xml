@@ -2,11 +2,11 @@
 	<feature-packs>
 		<feature-pack
 			groupId="org.wildfly"
-			artifactId="wildfly-feature-pack"
+			artifactId="wildfly-servlet-feature-pack"
 			version="11.0.0.Final" />
 		<feature-pack
-				groupId="org.hibernate"
-				artifactId="hibernate-orm-modules"
-				version="5.3.0-SNAPSHOT" />
+				groupId="org.wildfly.build.featurepack.testing"
+				artifactId="testing-output-featurepack"
+				version="0.1-SNAPSHOT" />
 	</feature-packs>
 </server-provisioning>

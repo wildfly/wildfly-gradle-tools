@@ -1,0 +1,103 @@
+/**
+ * When a single build is using both plugins to create a feature pack and consume it,
+ * we need to test for some special cases: the feature pack distribution will be a
+ * model reference, not an artifact we can fetch from a repository.
+ * It is actually quite common to use both the `featurepack` and the `provision`
+ * tasks in the same build as it's useful for integration tests to verify the
+ * feature packs which have been produced.
+ * N.B. the feature packs built by this specific script are not being tested
+ * and are not functional, this is meant to test the Gradle build only.
+ *
+ * @author Sanne Grinovero sanne@hibernate.org (C) 2018 Red Hat Inc.
+  */
+
+
+/*  Uncomment the following block to be able to run the script independently from the unit tests.
+buildscript{
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.wildfly.build:wildfly-gradle-tools:0.0.5-SNAPSHOT'
+	}
+}
+
+apply plugin: 'org.wildfly.build.featurepack'
+apply plugin: 'org.wildfly.build.provision'
+apply plugin: 'maven-publish'
+*/
+
+// This `plugins` section allows the plugin classpath to pick it up from the IDE,
+// useful for development of tests and debugging.
+// Remove this section and replace it with the above one (commented) to run this
+// build script via Gradle directly.
+plugins {
+	id 'org.wildfly.build.featurepack'
+	id 'org.wildfly.build.provision'
+	id 'maven-publish'
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+// Shared properties among various tasks belong in the project extension:
+ext {
+
+	//Target build directory for the (exploded) Feature Pack
+	fpackStagingDir = file( "$rootDir/combined-test-fp")
+}
+
+configurations {
+	//Define as many configurations as you need; these can then be used in the `dependencies` section.
+	fpack {
+		description = "Base configuration for the feature pack build"
+	}
+}
+
+dependencies {
+	// This is where you can specify the versions of libraries to be included in the feature packs
+	fpack 'org.hibernate:hibernate-core:5.2.12.Final'
+	fpack 'org.hibernate:hibernate-envers:5.2.12.Final'
+	fpack 'org.hibernate:hibernate-hikaricp:5.2.12.Final'
+	fpack 'org.hibernate:hibernate-spatial:5.2.12.Final'
+}
+
+featurepack {
+	moduleTemplates = file("$rootDir/examplemodules") //where to find the templates for module.xml files to generate
+	destinationDir = project.ext.fpackStagingDir //Target build directory
+	configurationName 'fpack' //Specify which configuration to use for resolution of artifact versions
+	variables['slot'] = 'orm52' //Template engine: values to replace in the module.xml templates
+	variables['jipijapaSlot'] = 'wf11'
+	dependency 'org.wildfly:wildfly-servlet-feature-pack:11.0.0.Final'
+}
+
+task createFeaturePackZip(type: Zip, dependsOn: featurepack) {
+	baseName 'testing-output-featurepack'
+	archiveName 'testing-output-featurepack.zip'
+	description 'Anything you want here'
+	from project.ext.fpackStagingDir
+	destinationDir file("$buildDir")
+}
+
+publishing {
+	publications {
+		zippedFeaturePack(MavenPublication) {
+			artifact source: createFeaturePackZip, extension: 'zip'
+			groupId 'org.wildfly.build.featurepack.testing'
+			artifactId 'testing-output-featurepack'
+			version '0.1-SNAPSHOT' //Specific version needed for test purposes. Do not update!
+		}
+	}
+}
+
+provision {
+	configuration = file("$rootDir/combined-server-provisioning.xml")
+	destinationDir = file("$rootDir/combined-wildfly-output")
+}
+
+//Make sure to declare that the provision task will need to be able to resolve
+//artifacts which need building:
+provision.dependsOn createFeaturePackZip
