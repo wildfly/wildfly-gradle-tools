@@ -9,7 +9,7 @@ public class FeaturePackBuilderPlugin implements Plugin<Project> {
 
 
 	public void apply(Project project) {
-		project.getTasks().create( "feature-pack", FeaturePackBuilderTask.class, (task) -> {
+		project.getTasks().create( "featurepack", FeaturePackBuilderTask.class, (task) -> {
 //			task.slot
 		});
 	}
