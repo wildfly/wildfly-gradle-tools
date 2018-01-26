@@ -15,12 +15,12 @@ import java.util.List;
 /**
  * @author Andrea Boriero
  */
-public class Module {
+class Module {
 	private static final String FILENAME = "module.xml";
 	private final File module;
 
-	public Module(ModuleDestinationFolder moduleDestinationFolder) {
-		this.module = new File( moduleDestinationFolder.getModuleFilePath( FILENAME ) );
+	public Module(ModuleFolderPath moduleFolderPath) {
+		this.module = new File( moduleFolderPath.toString() + File.separator + FILENAME );
 	}
 
 	public void create(List<String> fileContentLines) throws IOException {

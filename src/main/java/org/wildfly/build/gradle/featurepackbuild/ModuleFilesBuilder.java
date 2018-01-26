@@ -14,38 +14,41 @@ import nu.xom.ParsingException;
 /**
  * @author Andrea Boriero
  */
-public class ModuleFilesBuilder {
+class ModuleFilesBuilder {
 
-	private File templateDir;
 	private String slotName;
-	private File baseModulFoder;
+	private File templateFolder;
+	private File rootModulesFolder;
 
-	public ModuleFilesBuilder(File templateDir, String slot, File destinationRootFolder) {
-		this.templateDir = templateDir;
+	public ModuleFilesBuilder(File templateFolder, String slot, File rootModulesFolder) {
+		this.templateFolder = templateFolder;
 		this.slotName = slot;
-		this.baseModulFoder = destinationRootFolder;
+		this.rootModulesFolder = rootModulesFolder;
 	}
 
 	void build() throws IOException, ParsingException {
-		File[] templates = templateDir.listFiles();
-		for ( File templateFile : templates ) {
-			if ( templateFile.isFile() ) {
-				Template template = new Template( templateFile, slotName );
-
-				ModuleDestinationFolder moduleDestinationFolder = new ModuleDestinationFolder(
-						baseModulFoder,
-						template.getArtifactName(),
-						slotName
-
-				);
-
-				moduleDestinationFolder.createFolder();
-
-				Module xmlFile = new Module( moduleDestinationFolder );
-
-				xmlFile.create( template.getXmlModuleContent() );
+		File[] templates = templateFolder.listFiles();
+		for ( File template : templates ) {
+			if ( template.isFile() ) {
+				buildModule( template );
 			}
 		}
+	}
+
+	private void buildModule(File templateFile) throws IOException, ParsingException {
+		ModuleTemplate moduleTemplate = new ModuleTemplate( templateFile, slotName );
+
+		ModuleFolderPath moduleFolderPath = new ModuleFolderPath(
+				rootModulesFolder,
+				moduleTemplate.getArtifactName(),
+				slotName
+		);
+
+		moduleFolderPath.createFolder();
+
+		Module xmlFile = new Module( moduleFolderPath );
+
+		xmlFile.create( moduleTemplate.getXmlModuleContent() );
 	}
 
 }

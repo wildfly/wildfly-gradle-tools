@@ -11,22 +11,22 @@ import java.io.File;
 /**
  * @author Andrea Boriero
  */
-class ModuleDestinationFolder {
-	private File moduleXmlBaseFoder;
+class ModuleFolderPath {
+	private File moduleXmlFoder;
 
-	public ModuleDestinationFolder(File baseRootFoder, String artifactName, String slotName) {
-		moduleXmlBaseFoder = new File( getModuleXmlFileFolerName( baseRootFoder, artifactName, slotName ) );
+	public ModuleFolderPath(File rootFolder, String artifactName, String slotName) {
+		moduleXmlFoder = new File( getModuleXmlFileFolderName( rootFolder, artifactName, slotName ) );
 	}
 
 	public void createFolder() {
-		moduleXmlBaseFoder.mkdirs();
+		moduleXmlFoder.mkdirs();
 	}
 
-	public String getModuleFilePath(String fileName) {
-		return moduleXmlBaseFoder.getPath() + File.separator + fileName;
+	public String toString() {
+		return moduleXmlFoder.getPath();
 	}
 
-	private String getModuleXmlFileFolerName(File baseRootFoder, String artifactName, String slotName) {
+	private String getModuleXmlFileFolderName(File baseRootFoder, String artifactName, String slotName) {
 		return getdModuleFolderName( getBaseModuleFolderName( baseRootFoder ), artifactName, slotName );
 	}
 

@@ -20,12 +20,12 @@ import org.wildfly.build.util.ModuleParser;
 /**
  * @author Andrea Boriero
  */
-public class Template {
+class ModuleTemplate {
 	private final String placeHolder = "\\$\\{slot\\}";
 	private final File template;
 	private final String slot;
 
-	public Template(File template, String slot) {
+	public ModuleTemplate(File template, String slot) {
 		this.template = template;
 		this.slot = slot;
 	}
