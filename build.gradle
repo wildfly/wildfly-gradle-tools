@@ -4,7 +4,6 @@ plugins {
 	id 'java-gradle-plugin'
 	id 'maven-publish'
 	id 'idea'
-	id 'groovy'
 }
 
 repositories {
@@ -15,13 +14,6 @@ repositories {
 		url "http://repository.jboss.org/nexus/content/groups/public/"
 	}
 	mavenLocal(  )
-}
-
-sourceSets {
-	main {
-		java { srcDirs = [] }    // no source dirs for the java compiler
-		groovy { srcDirs = ["src/main/java", "src/main/groovy"]  }  // compile everything in src/ with groovy
-	}
 }
 
 gradlePlugin {

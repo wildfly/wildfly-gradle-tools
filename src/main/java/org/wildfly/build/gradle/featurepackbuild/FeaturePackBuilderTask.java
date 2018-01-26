@@ -10,7 +10,7 @@ import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.OutputDirectory;
 import org.gradle.api.tasks.TaskAction;
 
-import org.wildfly.build.gradle.ModuleFilesGenerator;
+import nu.xom.ParsingException;
 
 public class FeaturePackBuilderTask extends DefaultTask {
 
@@ -26,10 +26,10 @@ public class FeaturePackBuilderTask extends DefaultTask {
 	String slot = "main";
 
 	@TaskAction
-	void doBuildFeaturePack() throws IOException {
+	void doBuildFeaturePack() throws IOException, ParsingException {
 		getLogger().info( "Starting creationg of feature pack from templates in: '{}'",  moduleTemplates );
-		ModuleFilesGenerator moduleFileCreator = new ModuleFilesGenerator( moduleTemplates, slot, destinationDir );
-		moduleFileCreator.create();
+		ModuleFilesBuilder moduleFileCreator = new ModuleFilesBuilder( moduleTemplates, slot, destinationDir );
+		moduleFileCreator.build();
 	}
 
 
