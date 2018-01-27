@@ -1,0 +1,6 @@
+
+/modules -> common prefix directly in the output directory
+/system/layers/base -> Layer prefix
+/org/hibernate -> Matches the module id (name="org.hibernate")
+/main -> Matches the slot (default is "main", in which case we can omit it in the output module.xml but it needs to be part of the path explicitly)
+

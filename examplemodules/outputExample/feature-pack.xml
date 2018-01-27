@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<feature-pack xmlns="urn:wildfly:feature-pack:1.1">
+<dependencies>
+    <!--In futuro-->
+    <artifact name="org.group1:feature-dependency1"/>
+    <artifact name="org.group2:feature-dependency2"/>
+</dependencies>
+<artifact-versions>
+    <!--In futuro-->
+    <artifact groupId="org.group1" artifactId="feature-dependency1" version="5.9.0-SNAPSHOT" extension="zip"/>
+    <artifact groupId="org.group2" artifactId="feature-dependency2" version="5.9.0-SNAPSHOT" extension="zip"/>
+
+    <!--Versioni risolte a partire dalla Configuration del progetto che invoca il nostro plugin-->
+    <artifact groupId="org.hibernate" artifactId="hibernate-core" version="5.9.0-SNAPSHOT"/>
+    <artifact groupId="org.hibernate" artifactId="hibernate-envers" version="5.9.0-SNAPSHOT"/>
+    <artifact groupId="org.hibernate" artifactId="hibernate-spatial1" version="5.9.0-SNAPSHOT"/>
+    <artifact groupId="org.hibernate" artifactId="hibernate-spatial2" version="5.9.0-SNAPSHOT"/>
+</artifact-versions>
+</feature-pack>
