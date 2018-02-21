@@ -73,5 +73,5 @@ pluginBundle {
 }
 
 description = 'A WildFly Provisioning Plugin for Gradle users'
-version = '0.0.5-SNAPSHOT'
+version = '0.0.5'
 group 'org.wildfly.build'
