@@ -50,6 +50,8 @@ public class ProvisionTask extends DefaultTask {
 		destinationDir = getProject().getBuildDir().toPath().resolve( DEFAULT_OUTPUT_DIR ).toFile();
 	}
 
+	private Map<String,String> variables = new HashMap<>();
+
 	@InputFile
 	@Optional
 	@PathSensitive(PathSensitivity.NONE)
@@ -60,11 +62,19 @@ public class ProvisionTask extends DefaultTask {
 
 	private Map<String,ProvisionOverride> overrides = new HashMap<>(  );
 
+	@Input
+	public Map<String, String> getVariables() {
+		return variables;
+	}
+
+	public void setVariables(Map<String, String> variables) {
+		this.variables = variables;
+	}
+
 	@TaskAction
 	void doProvisioning() throws IOException {
 		getLogger().info( "Server Provisioning Configuration resource: '{}'",  configuration );
-		final Properties properties = new Properties();
-		final ServerProvisioningDescription serverProvisioningDescription = parseServerProvisioningDescriptor( properties );
+		final ServerProvisioningDescription serverProvisioningDescription = parseServerProvisioningDescriptor();
 		final GradleArtifactFileResolver resolver = new GradleArtifactFileResolver( this.getProject() );
 		final MapBasedOverridesResolver overridesResolver = new MapBasedOverridesResolver( overrides );
 		try {
@@ -93,8 +103,8 @@ public class ProvisionTask extends DefaultTask {
 		overrides.put( artifactIdentifier, override );
 	}
 
-	private ServerProvisioningDescription parseServerProvisioningDescriptor(Properties properties) throws IOException {
-		final ServerProvisioningDescriptionModelParser parser = new ServerProvisioningDescriptionModelParser( new MapPropertyResolver( properties ) );
+	private ServerProvisioningDescription parseServerProvisioningDescriptor() throws IOException {
+		final ServerProvisioningDescriptionModelParser parser = new ServerProvisioningDescriptionModelParser( new MapPropertyResolver( variables ) );
 		try ( InputStream configStream = openConfigurationInputStream() ) {
 			return parser.parse( configStream );
 		}

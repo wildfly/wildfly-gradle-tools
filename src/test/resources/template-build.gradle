@@ -12,7 +12,6 @@ repositories {
 }
 
 provision {
-
 	//Optional destination directory:
 	//destinationDir = file("$buildDir/WildFly-Light")
 
@@ -31,4 +30,7 @@ provision {
 		groupId = 'javax.persistence'
 		artifactId = 'javax.persistence-api'
 	}
+
+	//Define variables which need replacing in the provisioning configuration!
+	variables['wildfly.version'] = '11.0.0.Final'
 }
