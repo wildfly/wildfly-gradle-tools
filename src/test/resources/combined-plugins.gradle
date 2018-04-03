@@ -96,6 +96,7 @@ publishing {
 provision {
 	configuration = file("$rootDir/combined-server-provisioning.xml")
 	destinationDir = file("$rootDir/combined-wildfly-output")
+	autoAddRepositories = true //It's the default
 }
 
 //Make sure to declare that the provision task will need to be able to resolve

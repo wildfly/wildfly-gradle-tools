@@ -46,15 +46,19 @@ public class GradleArtifactFileResolver implements ArtifactFileResolver {
 	private final Logger logger;
 	private final List<Publication> knownPublications;
 
-	//We set this flag when we enable additional repositories automatically.
+	//Set this to false to ensure we don't add any repository which wasn't explicitly configured
+	private final boolean autoAddRepositories;
+
+	//We set this flag when we enabled additional repositories automatically.
 	private boolean repositoriesAutomaticallyAdded = false;
 
-	public GradleArtifactFileResolver(Project project) {
+	public GradleArtifactFileResolver(Project project, boolean autoAddRepositories) {
 		this.project = project;
 		this.dependencies = project.getDependencies();
 		this.configurations = project.getConfigurations();
 		this.knownPublications = extractPublishingExtensions( project.getRootProject().getAllprojects() );
 		this.logger = project.getLogger();
+		this.autoAddRepositories = autoAddRepositories;
 	}
 
 	private static List<Publication> extractPublishingExtensions(Set<Project> subprojects) {
@@ -146,7 +150,7 @@ public class GradleArtifactFileResolver implements ArtifactFileResolver {
 		if ( resolvedConfiguration.hasError() ) {
 			//In case of error, user is likely not having the JBoss Nexus repository enabled.
 			//Attempt configuration correction:
-			if ( repositoriesAutomaticallyAdded == false ) {
+			if ( autoAddRepositories && repositoriesAutomaticallyAdded == false ) {
 				repositoriesAutomaticallyAdded = true;
 				addDefaultRepositories( artifactLabel );
 				//And retry:

@@ -60,6 +60,9 @@ public class ProvisionTask extends DefaultTask {
 	@OutputDirectory
 	File destinationDir;
 
+	@Input
+	boolean autoAddRepositories = true;
+
 	private Map<String,ProvisionOverride> overrides = new HashMap<>(  );
 
 	@Input
@@ -75,7 +78,7 @@ public class ProvisionTask extends DefaultTask {
 	void doProvisioning() throws IOException {
 		getLogger().info( "Server Provisioning Configuration resource: '{}'",  configuration );
 		final ServerProvisioningDescription serverProvisioningDescription = parseServerProvisioningDescriptor();
-		final GradleArtifactFileResolver resolver = new GradleArtifactFileResolver( this.getProject() );
+		final GradleArtifactFileResolver resolver = new GradleArtifactFileResolver( this.getProject(), autoAddRepositories );
 		final MapBasedOverridesResolver overridesResolver = new MapBasedOverridesResolver( overrides );
 		try {
 			ServerProvisioner.build( serverProvisioningDescription, destinationDir, false, resolver, overridesResolver );

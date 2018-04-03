@@ -21,11 +21,12 @@ public class FeaturePackBuilderTask extends DefaultTask {
 	private Map<String,String> variables = new HashMap<>();
 	private String gradleConfigurationName;
 	private Set<String> dependencies = new HashSet<>();
+	private boolean autoAddRepositories = true;
 
 	@TaskAction
 	void doBuildFeaturePack() throws Exception {
 		getLogger().info( "Starting creationg of feature pack from templates in: '{}'",  moduleTemplates );
-		final GradleArtifactFileResolver resolver = new GradleArtifactFileResolver( this.getProject() );
+		final GradleArtifactFileResolver resolver = new GradleArtifactFileResolver( this.getProject(), autoAddRepositories );
 		ModuleFilesBuilder moduleFileCreator = new ModuleFilesBuilder( moduleTemplates.toPath(), variables, destinationDir.toPath(), resolver, gradleConfigurationName, dependencies );
 		moduleFileCreator.build();
 	}
@@ -64,6 +65,15 @@ public class FeaturePackBuilderTask extends DefaultTask {
 
 	public void setConfigurationName(String gradleConfigurationName) {
 		this.gradleConfigurationName = gradleConfigurationName;
+	}
+
+	@Input
+	public boolean isAutoAddRepositories() {
+		return autoAddRepositories;
+	}
+
+	public void setAutoAddRepositories(boolean autoAddRepositories) {
+		this.autoAddRepositories = autoAddRepositories;
 	}
 
 	//TODO how to get Gradle keep track of these inputs?
