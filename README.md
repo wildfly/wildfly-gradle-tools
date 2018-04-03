@@ -1,3 +1,5 @@
+This repository contains two plugins: one to create a custom WildFly server by assembling various feature packs, and one to create such feature packs.
+
 # Gradle plugin for WildFly provisioning
 
 *org.wildfly.build.provision* plugin. See also the [plugin page](https://plugins.gradle.org/plugin/org.wildfly.build.provision) on the Gradle Plugin Portal for details on how to apply the latest plugin version to your build.
@@ -5,10 +7,11 @@
 ## Minimum working `build.gradle` :
 
 	plugins {
-		id 'org.wildfly.build.provision' version '0.0.3'
+		id 'org.wildfly.build.provision' version '0.0.6'
 	}
 	
 	provision {
+	    variables['wildfly.version'] = '11.0.0.Final'
 	}
 
 Run with
@@ -21,7 +24,7 @@ You'll find a fully working copy of WildFly 11.0.0.Final in your `build/provisio
 ## More powerful example `build.gradle` :
 
     plugins {
-       id 'org.wildfly.build.provision' version "0.0.3"
+       id 'org.wildfly.build.provision' version "0.0.6"
     }
 
 	repositories {
@@ -36,6 +39,14 @@ You'll find a fully working copy of WildFly 11.0.0.Final in your `build/provisio
 	provision {
 		//Optional provisioning configuration:
 		//configuration = "custom-server-provisioning.xml"
+
+		//You can set variables to be injected in the provisioning.xml configuration;
+		//The 'wildfly.version' variable is required by the default configuration:
+		variables['wildfly.version'] = '11.0.0.Final'
+
+		//The default is to add jboss-nexus automatically as you'll likely need it,
+		//yet most builds will want to control such details explicitly.
+		autoAddRepositories = false
 		
 		//Optional destination directory:
 		//destinationDir = file("$buildDir/light-wildfly")
