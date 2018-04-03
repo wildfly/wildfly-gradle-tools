@@ -13,7 +13,6 @@ repositories {
 		name 'jboss-nexus'
 		url "http://repository.jboss.org/nexus/content/groups/public/"
 	}
-	mavenLocal(  )
 }
 
 gradlePlugin {
@@ -73,5 +72,5 @@ pluginBundle {
 }
 
 description = 'A WildFly Provisioning Plugin for Gradle users'
-version = '0.0.5'
+version = '0.0.6-SNAPSHOT'
 group 'org.wildfly.build'
