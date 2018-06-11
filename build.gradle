@@ -37,9 +37,19 @@ publishing {
 }
 
 dependencies {
-	compile 'org.wildfly.build:wildfly-server-provisioning-standalone:1.2.6.Final@jar'
+	compile 'org.wildfly.build:wildfly-server-provisioning:1.2.6.Final'
 	testCompile 'junit:junit:4.12'
 	testCompile gradleTestKit()
+}
+
+idea {
+	project {
+		languageLevel = '1.8'
+	}
+	module {
+		downloadSources = true
+		downloadJavadoc = true
+	}
 }
 
 buildScan {
@@ -71,6 +81,10 @@ pluginBundle {
 	}
 }
 
+wrapper {
+	distributionType = Wrapper.DistributionType.ALL
+}
+
 description = 'A WildFly Provisioning Plugin for Gradle users'
-version = '0.0.6'
+version = '0.0.7-SNAPSHOT'
 group 'org.wildfly.build'
