@@ -54,11 +54,8 @@ idea {
 
 buildScan {
 	//See also: https://docs.gradle.com/build-scan-plugin/
-	//Enable reports with "--scan" option; e.g.:
-	//  gradle clean build --scan
-	licenseAgreementUrl = 'https://gradle.com/terms-of-service'
-	//Uncomment the next line to agree to the above terms of service automatically (required to use the scan service):
-	//licenseAgree = 'yes'
+	termsOfServiceUrl = 'https://gradle.com/terms-of-service';
+	termsOfServiceAgree = 'yes'
 }
 
 pluginBundle {
