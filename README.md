@@ -7,7 +7,7 @@ This repository contains two plugins: one to create a custom WildFly server by a
 ## Minimum working `build.gradle` :
 
 	plugins {
-		id 'org.wildfly.build.provision' version '0.0.6'
+		id 'org.wildfly.build.provision' version '0.0.7'
 	}
 	
 	provision {
@@ -24,7 +24,7 @@ You'll find a fully working copy of WildFly 11.0.0.Final in your `build/provisio
 ## More powerful example `build.gradle` :
 
     plugins {
-       id 'org.wildfly.build.provision' version "0.0.6"
+       id 'org.wildfly.build.provision' version "0.0.7"
     }
 
 	repositories {
