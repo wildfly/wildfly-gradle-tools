@@ -130,6 +130,7 @@ public class GradleArtifactFileResolver implements ArtifactFileResolver {
 				.flatMap( MavenArtifactSet::stream )
 				.filter( m -> m.getFile() != null )
 				.map( m -> m.getFile() )
+				.filter( f -> ((!f.getName().endsWith( "-sources.jar" ))&&(!f.getName().endsWith( "-javadoc.jar" ))) )
 				.findAny();
 		return anyMatch;
 	}
