@@ -88,11 +88,6 @@ public class GradleArtifactFileResolver implements ArtifactFileResolver {
 	}
 
 	@Override
-	public File getArtifactFile(String gav) {
-		return getArtifactFile( Artifact.parse( gav ) );
-	}
-
-	@Override
 	public File getArtifactFile(Artifact artifact) {
 		final Dependency dependency = asGradleDependency( artifact );
 		final DependencyAdaptor da = new DependencyAdaptor( artifact );

@@ -34,8 +34,8 @@ public class MapBasedOverridesResolver implements ArtifactResolver {
 		return s;
 	}
 
-	public Artifact getArtifact(String coords) {
-		ProvisionOverride o = this.overrides.get( coords);
+	private Artifact getArtifact(String coords) {
+		ProvisionOverride o = this.overrides.get( coords );
 		if (o == null) {
 			return null;
 		} else {
@@ -72,23 +72,24 @@ public class MapBasedOverridesResolver implements ArtifactResolver {
 				}
 				throw exception;
 			}
-			return new Artifact( groupId, artifactId, classifier, extension, version );
+			return new Artifact( groupId, artifactId, extension, classifier, version );
 		}
 	}
 
-	public Artifact getArtifact(Artifact.GACE GACE) {
+	@Override
+	public Artifact getArtifact(final Artifact unversioned) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(GACE.getGroupId());
+		sb.append(unversioned.getGroupId());
 		sb.append(':');
-		sb.append(GACE.getArtifactId());
-		if (GACE.getClassifier() != null) {
-			sb.append("::").append(GACE.getClassifier());
+		sb.append(unversioned.getArtifactId());
+		if (unversioned.getClassifier() != null) {
+			sb.append("::").append(unversioned.getClassifier());
 		}
-
 		return this.getArtifact(sb.toString());
 	}
 
 	private boolean isEmpty(final String s) {
 		return s == null || s.trim().equals( "" );
 	}
+
 }

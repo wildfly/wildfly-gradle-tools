@@ -3,8 +3,6 @@ package org.wildfly.build.gradle.featurepackbuild;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Set;
 import javax.xml.stream.XMLStreamException;
 
 import org.wildfly.build.Locations;
@@ -13,7 +11,7 @@ import org.wildfly.build.pack.model.FeaturePackDescriptionXMLWriter11;
 
 public class DefinitionWriter {
 
-	private static String FILENAME = Locations.FEATURE_PACK_DESCRIPTION;
+	private static final String FILENAME = Locations.FEATURE_PACK_DESCRIPTION;
 	private FeaturePackDescription fpd = new FeaturePackDescription();
 
 	public void writeFile(Path outputDirectory) throws IOException, XMLStreamException {

@@ -63,7 +63,7 @@ public class ProvisionTask extends DefaultTask {
 	@Input
 	boolean autoAddRepositories = true;
 
-	private Map<String,ProvisionOverride> overrides = new HashMap<>(  );
+	private final Map<String,ProvisionOverride> overrides = new HashMap<>(  );
 
 	@Input
 	public Map<String, String> getVariables() {

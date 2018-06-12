@@ -20,12 +20,12 @@ public class DependencyAdaptor implements ModuleComponentIdentifier {
 
 	@Override
 	public String getGroup() {
-		return artifact.getGACE().getGroupId();
+		return artifact.getGroupId();
 	}
 
 	@Override
 	public String getModule() {
-		return artifact.getGACE().getArtifactId();
+		return artifact.getArtifactId();
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class DependencyAdaptor implements ModuleComponentIdentifier {
 
 	@Override
 	public String getDisplayName() {
-		return artifact.getGACE().toString();
+		return artifact.toString();
 	}
 
 	/**
@@ -46,17 +46,17 @@ public class DependencyAdaptor implements ModuleComponentIdentifier {
 	public String toGradleNotation() {
 		//Needs to match format: "<i>group</i>:<i>name</i>:<i>version</i>:<i>classifier</i>@<i>extension</i>"
 		StringBuilder sb = new StringBuilder(  )
-				.append( artifact.getGACE().getGroupId() )
+				.append( artifact.getGroupId() )
 				.append( ':' )
-				.append( artifact.getGACE().getArtifactId() )
+				.append( artifact.getArtifactId() )
 				.append( ':' )
 				.append( artifact.getVersion() );
-		final String classifier = artifact.getGACE().getClassifier();
+		final String classifier = artifact.getClassifier();
 		if ( classifier != null && ! classifier.isEmpty() ) {
 			sb.append( ':' );
 			sb.append( classifier );
 		}
-		final String extension = artifact.getGACE().getExtension();
+		final String extension = artifact.getPackaging();
 		if ( extension != null && ! extension.isEmpty() ) {
 			sb.append( '@' );
 			sb.append( extension );

@@ -37,13 +37,13 @@ final class ArtifactsRegistry {
 			if ( parts.length != 2 ) {
 				throw new IllegalArgumentException( "Format of artifact coordinates is expected to be as 'groupId:artifactId'. Please fix the format of artifacts listed in the module templates." );
 			}
-			map.computeIfAbsent( coords, c -> resolveArtifact( parts[0], parts[1] ) );
+			map.computeIfAbsent( coords, c -> resolveArtifactVersion( parts[0], parts[1] ) );
 		}
 	}
 
-	private Artifact resolveArtifact(String groupId, String artifactId) {
-		final Artifact.GACE gace = new Artifact.GACE( groupId, artifactId, null, null );
-		return new Artifact( gace, resolveVersion( groupId, artifactId ) );
+	private Artifact resolveArtifactVersion(String groupId, String artifactId) {
+		final String version = resolveVersion( groupId, artifactId );
+		return new Artifact( groupId, artifactId, null, null, version );
 	}
 
 	private synchronized String resolveVersion(String groupId, String artifactId) {
@@ -70,16 +70,15 @@ final class ArtifactsRegistry {
 			final String artifactId = shortMatcher.group( 2 );
 			final String extension = "zip"; //hardcoded as better default for this use case!
 			//TODO should we support "classifier" as well?
-			final Artifact.GACE gace = new Artifact.GACE( groupId, artifactId, null, extension );
 			final String version = shortMatcher.group( 3 );
-			return new Artifact( gace, version );
+			return new Artifact( groupId, artifactId, extension, null, version );
 		}
 		throw new IllegalArgumentException( "Illegal format '" + encodedFPackName + "'. Expecting format: 'group:name:version' for feature pack dependencies." );
 	}
 
 	public Collection<String> getDependencyFeaturePacks() {
 		return featurePacks.values().stream()
-				.map( s -> s.getGACE().getGroupId() + ":" + s.getGACE().getArtifactId() )
+				.map( s -> s.getGroupId() + ":" + s.getArtifactId() )
 				.collect( Collectors.toSet() );
 	}
 
