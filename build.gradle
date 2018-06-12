@@ -70,7 +70,7 @@ pluginBundle {
 			displayName = 'WildFly Provision Plugin'
 			description = 'A gradle plugin to materialize a custom WildFly instance from a server provisioning definition'
 		}
-		provisionPlugin {
+		featurepackPlugin {
 			id = 'org.wildfly.build.featurepack'
 			displayName = 'WildFly Feature Pack builder'
 			description = 'A gradle plugin to help creating a custom WildFly Feature Pack'
@@ -83,5 +83,5 @@ wrapper {
 }
 
 description = 'A WildFly Provisioning Plugin for Gradle users'
-version = '0.0.7'
+version = '0.0.8'
 group 'org.wildfly.build'
