@@ -83,5 +83,5 @@ wrapper {
 }
 
 description = 'A WildFly Provisioning Plugin for Gradle users'
-version = '0.0.8'
+version = '0.0.9'
 group 'org.wildfly.build'
