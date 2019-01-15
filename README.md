@@ -7,7 +7,7 @@ This repository contains two plugins: one to create a custom WildFly server by a
 ## Minimum working `build.gradle` :
 
 	plugins {
-		id 'org.wildfly.build.provision' version '0.0.7'
+		id 'org.wildfly.build.provision' version '0.0.9'
 	}
 	
 	provision {
@@ -24,7 +24,7 @@ You'll find a fully working copy of WildFly 11.0.0.Final in your `build/provisio
 ## More powerful example `build.gradle` :
 
     plugins {
-       id 'org.wildfly.build.provision' version "0.0.7"
+       id 'org.wildfly.build.provision' version "0.0.9"
     }
 
 	repositories {
@@ -109,6 +109,38 @@ A more complex example:
 
 The above example will materialize a smaller WildFly server (the "servlet" edition), but then
 include as well the Apache Lucene libraries appropriately packaged as modules.
+
+### Thin vs Full servers
+
+By default the `<server-provisioning>` element produces a _thin_ server:
+that's a very small server as it doesn't include a copy of all jar files,
+rather referencing them from your local Maven repository.
+
+(Yes it will use the Maven repository even during a Gradle build)
+
+This is ideal for integration tests which need to produce and delete servers regularly,
+and will transparently benefit from the Maven cache.
+
+If you don't want to rely on the Maven cache you can produce a full copy
+of the WildFly server by setting the `copy-module-artifacts=true` attribute
+in the top element.
+
+For example:
+
+    <server-provisioning xmlns="urn:wildfly:server-provisioning:1.1" copy-module-artifacts="true">
+      <feature-packs>
+        <feature-pack groupId="org.wildfly" artifactId="wildfly-feature-pack" version="${project.version}">
+          <contents>
+            <filter pattern="copyright.txt" include="false"/>
+            <filter pattern="README.txt" include="false"/>
+            <filter pattern="docs/contrib/*" include="false"/>
+          </contents>
+        </feature-pack>
+      </feature-packs>
+    </server-provisioning>
+
+For a full list of the options supported by `server-provisioning`, see also the
+[Maven version of this plugin](https://github.com/wildfly/wildfly-build-tools/).
 
 ### Output directory
 
