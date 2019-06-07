@@ -7,7 +7,7 @@ This repository contains two plugins: one to create a custom WildFly server by a
 ## Minimum working `build.gradle` :
 
 	plugins {
-		id 'org.wildfly.build.provision' version '0.0.9'
+		id 'org.wildfly.build.provision' version '0.0.10'
 	}
 	
 	provision {
@@ -24,7 +24,7 @@ You'll find a fully working copy of WildFly 11.0.0.Final in your `build/provisio
 ## More powerful example `build.gradle` :
 
     plugins {
-       id 'org.wildfly.build.provision' version "0.0.9"
+       id 'org.wildfly.build.provision' version "0.0.10"
     }
 
 	repositories {
@@ -32,7 +32,7 @@ You'll find a fully working copy of WildFly 11.0.0.Final in your `build/provisio
 		mavenCentral()
 		maven {
 			name 'jboss-nexus'
-			url "http://repository.jboss.org/nexus/content/groups/public/"
+			url "https://repository.jboss.org/nexus/content/groups/public/"
 		}
 	}
 	
