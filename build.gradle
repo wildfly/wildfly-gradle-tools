@@ -1,6 +1,6 @@
 plugins {
 	id 'com.gradle.build-scan' version '1.13.4'
-	id 'com.gradle.plugin-publish' version '0.9.10'
+	id 'com.gradle.plugin-publish' version '0.10.1'
 	id 'java-gradle-plugin'
 	id 'maven-publish'
 	id 'idea'
@@ -11,7 +11,7 @@ repositories {
 	jcenter()
 	maven {
 		name 'jboss-nexus'
-		url "http://repository.jboss.org/nexus/content/groups/public/"
+		url "https://repository.jboss.org/nexus/content/groups/public/"
 	}
 }
 
@@ -37,7 +37,7 @@ publishing {
 }
 
 dependencies {
-	compile 'org.wildfly.build:wildfly-server-provisioning:1.2.10.Final'
+	compile 'org.wildfly.build:wildfly-server-provisioning:1.2.11.Final'
 	compile gradleApi()
 	testCompile 'junit:junit:4.12'
 	testCompile gradleTestKit()
@@ -84,5 +84,5 @@ wrapper {
 }
 
 description = 'A WildFly Provisioning Plugin for Gradle users'
-version = '0.0.9'
+version = '0.0.9-SNAPSHOT'
 group 'org.wildfly.build'
