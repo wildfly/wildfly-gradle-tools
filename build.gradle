@@ -38,6 +38,7 @@ publishing {
 
 dependencies {
 	compile 'org.wildfly.build:wildfly-server-provisioning:1.2.10.Final'
+	compile gradleApi()
 	testCompile 'junit:junit:4.12'
 	testCompile gradleTestKit()
 }
