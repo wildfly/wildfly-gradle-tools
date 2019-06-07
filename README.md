@@ -6,13 +6,13 @@ This repository contains two plugins: one to create a custom WildFly server by a
 
 ## Minimum working `build.gradle` :
 
-	plugins {
-		id 'org.wildfly.build.provision' version '0.0.10'
-	}
-	
-	provision {
-	    variables['wildfly.version'] = '11.0.0.Final'
-	}
+    plugins {
+        id 'org.wildfly.build.provision' version '0.0.10'
+    }
+    
+    provision {
+        variables['wildfly.version'] = '11.0.0.Final'
+    }
 
 Run with
 
@@ -27,43 +27,43 @@ You'll find a fully working copy of WildFly 11.0.0.Final in your `build/provisio
        id 'org.wildfly.build.provision' version "0.0.10"
     }
 
-	repositories {
-		mavenLocal()
-		mavenCentral()
-		maven {
-			name 'jboss-nexus'
-			url "https://repository.jboss.org/nexus/content/groups/public/"
-		}
-	}
-	
-	provision {
-		//Optional provisioning configuration:
-		//configuration = "custom-server-provisioning.xml"
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            name 'jboss-nexus'
+            url "https://repository.jboss.org/nexus/content/groups/public/"
+        }
+    }
+    
+    provision {
+        //Optional provisioning configuration:
+        //configuration = "custom-server-provisioning.xml"
 
-		//You can set variables to be injected in the provisioning.xml configuration;
-		//The 'wildfly.version' variable is required by the default configuration:
-		variables['wildfly.version'] = '11.0.0.Final'
+        //You can set variables to be injected in the provisioning.xml configuration;
+        //The 'wildfly.version' variable is required by the default configuration:
+        variables['wildfly.version'] = '11.0.0.Final'
 
-		//The default is to add jboss-nexus automatically as you'll likely need it,
-		//yet most builds will want to control such details explicitly.
-		autoAddRepositories = false
-		
-		//Optional destination directory:
-		//destinationDir = file("$buildDir/light-wildfly")
-		//Overrides the version of an artifact:
-		override( 'org.hibernate:hibernate-core' ) {
-			version = '5.3.0.Beta1'
-		}
-		override( 'org.hibernate:hibernate-envers' ) {
-			version = '5.3.0.Beta1'
-		}
-		//Overrides version, group, etc.. :
-		override( 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api' ) {
-			groupId = 'javax.persistence'
-			artifactId = 'javax.persistence-api'
-			version = '2.2'
-		}
-	}
+        //The default is to add jboss-nexus automatically as you'll likely need it,
+        //yet most builds will want to control such details explicitly.
+        autoAddRepositories = false
+        
+        //Optional destination directory:
+        //destinationDir = file("$buildDir/light-wildfly")
+        //Overrides the version of an artifact:
+        override( 'org.hibernate:hibernate-core' ) {
+            version = '5.3.0.Beta1'
+        }
+        override( 'org.hibernate:hibernate-envers' ) {
+            version = '5.3.0.Beta1'
+        }
+        //Overrides version, group, etc.. :
+        override( 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api' ) {
+            groupId = 'javax.persistence'
+            artifactId = 'javax.persistence-api'
+            version = '2.2'
+        }
+    }
 
 
 ## Description
@@ -92,7 +92,7 @@ An example `server-provisioning.xml` could be:
 
     <server-provisioning xmlns="urn:wildfly:server-provisioning:1.1">
        <feature-packs>
-	      <feature-pack groupId="org.wildfly" artifactId="wildfly-feature-pack" version="11.0.0.Final"/>
+          <feature-pack groupId="org.wildfly" artifactId="wildfly-feature-pack" version="11.0.0.Final"/>
        </feature-packs>
     </server-provisioning>
 
