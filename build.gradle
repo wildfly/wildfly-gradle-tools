@@ -82,5 +82,9 @@ wrapper {
 }
 
 description = 'A WildFly Provisioning Plugin for Gradle users'
-version = '0.0.10'
+version = '0.0.11'
 group 'org.wildfly.build'
+
+def javaVersion = JavaVersion.VERSION_1_8;
+sourceCompatibility = javaVersion;
+targetCompatibility = javaVersion;
